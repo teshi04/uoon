@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>人力火力発電所</title>
+</head>
+<body>
+<CENTER>
+<p>人力火力発電所</p>
+<form method="post" action="/">
+<input type="submit" value="ログイン" />
+</form>
+<br><br><br>
+<P>by <a href="http://twitter.com/teshi04">@teshi04</a></p>
+</CENTER>
+</body>
+</html>
