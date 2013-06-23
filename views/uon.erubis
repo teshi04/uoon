@@ -7,7 +7,7 @@
 <body>
 <CENTER>
 <p>レッツ発電</p>
-<form method="post" action="/t">
+<form method="post" action="/uon">
 <input type="submit" value="発電" />
 <br><br><br>
 <P>by <a href="http://twitter.com/teshi04">@teshi04</a></p>
