@@ -13,13 +13,13 @@ configure do
 	#use Rack::Csrf, :raise => true
 end
 
-callback_url = 'http://uon.tsur.jp/callback'
+callback_url = 'http://localhost:4567/callback'
 consumer = OAuth::Consumer.new('YxPd7gAtYLUNVZ5zWzu6A', '8MWW60k5QyBB5hNkjZ2LdAqSgwG9ZLadelkewtJDgk', :site => 'https://twitter.com')
 
 get '/' do
-	if session[:access_token]
-		redirect '/uon'
-	end
+	#if session[:access_token]
+	#	redirect '/t'
+	#end
 	erb :index
 end
 
@@ -41,7 +41,7 @@ get '/callback' do
 	session[:access_token] = access_token.token
 	session[:access_token_secret] = access_token.secret
 	
-	redirect 'http://uon.tsur.jp/uon'	
+	redirect 'http://localhost:4567/uon'	
 end
 
 get '/uon' do
