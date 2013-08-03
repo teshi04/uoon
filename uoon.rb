@@ -60,7 +60,7 @@ post '/uon' do
 
 	@client.update("うおオン　俺はまるで人間火力発電所だ 
 #uoon_orehamarudeningenkaryokuhatudensyoda")
-	erb :index
+	erb :exit
 end
 
 
