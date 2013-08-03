@@ -58,7 +58,7 @@ post '/uon' do
     :oauth_token_secret => session[:access_token_secret]
   	)
 
-	@client.update("うおオン　俺はまるで人力火力発電所だ 
+	@client.update("うおオン　俺はまるで人間火力発電所だ 
 #uoon_orehamarudeningenkaryokuhatudensyoda")
 	erb :index
 end
