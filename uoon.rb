@@ -5,6 +5,7 @@ require 'erubis'
 require 'oauth'
 require 'rack/csrf'
 require 'twitter'
+require 'yaml'
 
 set :erb, :escape_html => true
 
@@ -13,8 +14,15 @@ configure do
 	#use Rack::Csrf, :raise => true
 end
 
-callback_url = 'http://uon.tsur.jp/callback'
-consumer = OAuth::Consumer.new('YxPd7gAtYLUNVZ5zWzu6A', '8MWW60k5QyBB5hNkjZ2LdAqSgwG9ZLadelkewtJDgk', :site => 'https://twitter.com')
+begin
+  $settings = YAML::load(open("./uoon.conf"))
+rescue
+  puts "config file load failed."
+  exit
+end
+
+callback_url = $settings["address"] + 'callback'
+consumer = OAuth::Consumer.new($settings['consumer_key'], $settings['consumer_secret'], :site => 'https://twitter.com')
 
 get '/' do
 	if session[:access_token]
@@ -41,7 +49,7 @@ get '/callback' do
 	session[:access_token] = access_token.token
 	session[:access_token_secret] = access_token.secret
 	
-	redirect 'http://uon.tsur.jp/uon'	
+	redirect $settings['address']+'uon'	
 end
 
 get '/uon' do
