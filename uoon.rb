@@ -1,4 +1,5 @@
 # coding: utf-8
+
 require 'rubygems' unless defined? ::Gem
 require 'sinatra'
 require 'erubis'
@@ -6,12 +7,13 @@ require 'oauth'
 require 'rack/csrf'
 require 'twitter'
 require 'yaml'
+require 'dalli'
+require 'rack/session/dalli'
 
 set :erb, :escape_html => true
 
 configure do
-	use Rack::Session::Cookie, :secret => Digest::SHA1.hexdigest('teshiya')
-	#use Rack::Csrf, :raise => true
+  use Rack::Session::Dalli, :cache => Dalli::Client.new
 end
 
 begin
@@ -24,6 +26,7 @@ end
 callback_url = $settings["address"] + 'callback'
 consumer = OAuth::Consumer.new($settings['consumer_key'], $settings['consumer_secret'], :site => 'https://twitter.com')
 
+puts $settings['consumer_key'], $settings['consumer_secret']
 get '/' do
 	if session[:access_token]
 		redirect '/uon'
