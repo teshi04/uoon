@@ -26,7 +26,6 @@ end
 callback_url = $settings["address"] + 'callback'
 consumer = OAuth::Consumer.new($settings['consumer_key'], $settings['consumer_secret'], :site => 'https://twitter.com')
 
-puts $settings['consumer_key'], $settings['consumer_secret']
 get '/' do
 	if session[:access_token]
 		redirect '/uon'
@@ -61,17 +60,29 @@ end
 
 post '/uon' do
 	Twitter.configure do |config|
-     config.consumer_key = 'YxPd7gAtYLUNVZ5zWzu6A'
-     config.consumer_secret = '8MWW60k5QyBB5hNkjZ2LdAqSgwG9ZLadelkewtJDgk'
+     config.consumer_key = $settings['consumer_key']
+     config.consumer_secret = $settings['consumer_secret']
    end
-	@client = Twitter::Client.new(
+	
+  @client = Twitter::Client.new(
   	:oauth_token => session[:access_token],
     :oauth_token_secret => session[:access_token_secret]
   	)
+  
+  begin
+	  @client.update("うおオン　俺はまるで人間火力発電所だ #uoon_orehamarudeningenkaryokuhatudensyoda")
+  rescue
+	  redirect '/error'
+  end
 
-	@client.update("うおオン　俺はまるで人間火力発電所だ 
-#uoon_orehamarudeningenkaryokuhatudensyoda")
-	erb :exit
+  redirect '/exit'
+end  
+
+get '/error' do
+ erb :error
+end 
+
+get '/exit' do
+  erb :exit
 end
-
 
